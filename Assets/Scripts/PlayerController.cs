@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public GameObject winUI;
     public GameObject pauseUI;
     public bool isGameWon = false;
+    public GameObject lostUI;
 
     // Start is called before the first frame update
     void Start()
@@ -70,7 +71,15 @@ public class PlayerController : MonoBehaviour
             isGameWon = true;
         }
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.tag == "Enemy")
+        {
+            Debug.Log("Game Over");
+            lostUI.SetActive(true);
 
+        }
+    }
     public void RestartGame()
     {
         Debug.Log("Button clicked");
