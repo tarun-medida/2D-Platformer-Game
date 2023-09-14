@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Game Over");
             lostUI.SetActive(true);
+            isGameWon = true;
 
         }
     }
