@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject winUI;
     public GameObject pauseUI;
+    public bool isGameWon = false;
 
     // Start is called before the first frame update
     void Start()
@@ -22,34 +23,40 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetAxis("Horizontal") > 0)
+        if (!isGameWon)
         {
-            rigidbody2d.velocity = new Vector2(speed, 0f);
-        }
-        else if (Input.GetAxis("Horizontal") < 0)
-        {
-            rigidbody2d.velocity = new Vector2(-speed, 0f);
-        }
-        else if (Input.GetAxis("Vertical") > 0)
-        {
-            rigidbody2d.velocity = new Vector2(0f, speed);
-        }
-        else if (Input.GetAxis("Vertical") < 0)
-        {
-            rigidbody2d.velocity = new Vector2(0f,-speed);
+            if (Input.GetAxis("Horizontal") > 0)
+            {
+                rigidbody2d.velocity = new Vector2(speed, 0f);
+            }
+            else if (Input.GetAxis("Horizontal") < 0)
+            {
+                rigidbody2d.velocity = new Vector2(-speed, 0f);
+            }
+            else if (Input.GetAxis("Vertical") > 0)
+            {
+                rigidbody2d.velocity = new Vector2(0f, speed);
+            }
+            else if (Input.GetAxis("Vertical") < 0)
+            {
+                rigidbody2d.velocity = new Vector2(0f, -speed);
+            }
+            else
+            {
+                rigidbody2d.velocity = new Vector2(0f, 0f);
+            }
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                pauseUI.SetActive(true);
+            }
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                pauseUI.SetActive(false);
+            }
         }
         else
         {
-            rigidbody2d.velocity=new Vector2(0f, 0f);
-        }
-
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            pauseUI.SetActive(true);
-        }
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            pauseUI.SetActive(false);
+            rigidbody2d.velocity = new Vector2(0f, 0f);
         }
     }
 
@@ -58,6 +65,7 @@ public class PlayerController : MonoBehaviour
         if(collision.tag == "Door")
         {
             winUI.SetActive(true);
+            isGameWon = true;
         }
     }
 }
