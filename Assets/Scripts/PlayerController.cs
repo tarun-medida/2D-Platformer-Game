@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -45,18 +46,19 @@ public class PlayerController : MonoBehaviour
             {
                 rigidbody2d.velocity = new Vector2(0f, 0f);
             }
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                pauseUI.SetActive(true);
-            }
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                pauseUI.SetActive(false);
-            }
         }
         else
         {
             rigidbody2d.velocity = new Vector2(0f, 0f);
+        }
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+
+            pauseUI.SetActive(true);
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            pauseUI.SetActive(false);
         }
     }
 
@@ -67,5 +69,22 @@ public class PlayerController : MonoBehaviour
             winUI.SetActive(true);
             isGameWon = true;
         }
+    }
+
+    public void RestartGame()
+    {
+        Debug.Log("Button clicked");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void PauseGame()
+    {
+        isGameWon = true;
+       
+    }
+
+    public void ResumeGame()
+    {
+        isGameWon = false;
     }
 }
